@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const StartScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>आज़ादी के गीत</Text>
-      <Text style={styles.subtitle}>Aajadhi Ke Geeth</Text>
+      <Text style={styles.title}>आत्मिक आराधना गीत</Text>
+      <Text style={styles.subtitle}>Aatmik Aaradhna Geet</Text>
       
       <View style={styles.buttonRow}>
         <TouchableOpacity style={[styles.button, styles.hindiButton]} onPress={() => navigation.navigate('Home')}>
@@ -27,6 +27,28 @@ const StartScreen = ({ navigation }) => {
         <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("UseFulLink")}>
           <Icon name="link" size={30} color="#fff" />
           <Text style={styles.buttonText}>Useful link</Text>
+        </TouchableOpacity>
+      </View>
+       
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
+          <Icon name="volume-high" size={30} color="#fff" />
+          <Text style={styles.buttonText}>Media & Magazine</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("UseFulLink")}>
+          <Icon name="link" size={30} color="#fff" />
+          <Text style={styles.buttonText}>Useful link</Text>
+        </TouchableOpacity>
+      </View>
+       
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
+          <Icon name="volume-high" size={30} color="#fff" />
+          <Text style={styles.buttonText}>Media & Magazine</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("AdminLogin")}>
+          <Icon name="account-cog" size={30} color="#fff" />
+          <Text style={styles.buttonText}>Admin Login</Text>
         </TouchableOpacity>
       </View>
       

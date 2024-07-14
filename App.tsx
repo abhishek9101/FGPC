@@ -15,6 +15,8 @@ import Creator from './Creator/Creator';
 import CourseSong from './CourseSong/CourseSong';
 import CourseSongDetails from './CourseSong/CourseSongDetails';
 import UseFulLink from './Components/UseFulLink/UseFulLink';
+import AdminLogin from './Admin_Login/AdminLogin';
+import AdminPageContent from './Admin_Login/AdminPageContent';
 const Stack=createNativeStackNavigator()
 
 
@@ -22,13 +24,15 @@ function App() {
   return(
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
-      <Stack.Screen name="Start" component={StartScreen} options={{ title: 'Start' }} />
-        <Stack.Screen name='Home' component={SongListScreen}/>
+      <Stack.Screen name="Start" component={StartScreen} options={{ title: 'Praise The Lord' }} />
+        <Stack.Screen name='Home' component={SongListScreen}  options={{ title: 'List of Song' }} />
         <Stack.Screen name='SongDetails' component={SongDetailScreen}/>
         <Stack.Screen name="Developers" component={Creator}/>
         <Stack.Screen name='chorus' component={CourseSong}/>
         <Stack.Screen name='CourseDetails' component={CourseSongDetails}/>
         <Stack.Screen name="UseFulLink" component={UseFulLink}/>
+        <Stack.Screen name="AdminLogin" component={AdminLogin} />
+        <Stack.Screen name="AdminPageContent" component={AdminPageContent}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
