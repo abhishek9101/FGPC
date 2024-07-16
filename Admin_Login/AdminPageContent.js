@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, ScrollView, StyleSheet } from 'react-native';
+import { AlertNotificationRoot, ALERT_TYPE, Dialog } from 'react-native-alert-notification';
 
-const ManageDummyData = () => {
+const ManageDataComponent = () => {
   const [photoUrl, setPhotoUrl] = useState('');
   const [caption, setCaption] = useState('');
   const [updatePhotoId, setUpdatePhotoId] = useState('');
@@ -10,196 +11,314 @@ const ManageDummyData = () => {
   const [textContent, setTextContent] = useState('');
   const [updateTextId, setUpdateTextId] = useState('');
   const [updateContent, setUpdateContent] = useState('');
+  const [linkType, setLinkType] = useState('');
+  const [linkUrl, setLinkUrl] = useState('');
+  const [updateLinkId, setUpdateLinkId] = useState('');
+  const [updateLinkType, setUpdateLinkType] = useState('');
+  const [updateLinkUrl, setUpdateLinkUrl] = useState('');
+  const [view, setView] = useState('all');
+
+  const showNotification = (type, message) => {
+    Dialog.show({
+      type,
+      title: 'Notification',
+      textBody: message,
+      button: 'close',
+    });
+  };
 
   const handleAddPhoto = () => {
-    fetch('http://localhost:3000/api/photos', {
+    fetch('https://fgpc-api.onrender.com/api/photos', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ url: photoUrl, caption }),
+      body: JSON.stringify({ url: photoUrl, caption })
     })
-      .then(response => response.json())
-      .then(data => {
-        alert('New photo added successfully');
-        console.log('New photo:', data);
-      })
-      .catch(error => console.error('Error adding photo:', error));
+    .then(response => response.json())
+    .then(data => {
+      // console.log('Photo added successfully!', data);
+      showNotification(ALERT_TYPE.SUCCESS, 'Photo added successfully!');
+      setPhotoUrl('');
+      setCaption('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification(ALERT_TYPE.DANGER, 'Failed to add photo');
+    });
   };
 
   const handleUpdatePhoto = () => {
-    fetch(`http://localhost:3000/api/photos/${updatePhotoId}`, {
+    fetch(`https://fgpc-api.onrender.com/api/photos/${updatePhotoId}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ url: updatePhotoUrl, caption: updateCaption }),
+      body: JSON.stringify({ url: updatePhotoUrl, caption: updateCaption })
     })
-      .then(response => response.json())
-      .then(data => {
-        alert('Photo updated successfully');
-        console.log('Updated photo:', data);
-      })
-      .catch(error => console.error('Error updating photo:', error));
+    .then(response => response.json())
+    .then(data => {
+      // console.log('Photo updated successfully!', data);
+      showNotification(ALERT_TYPE.SUCCESS, 'Photo updated successfully!');
+      setUpdatePhotoId('');
+      setUpdatePhotoUrl('');
+      setUpdateCaption('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification(ALERT_TYPE.DANGER, 'Failed to update photo');
+    });
   };
 
   const handleAddText = () => {
-    fetch('http://localhost:3000/api/texts', {
+    fetch('https://fgpc-api.onrender.com/api/texts', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ content: textContent }),
+      body: JSON.stringify({ content: textContent })
     })
-      .then(response => response.json())
-      .then(data => {
-        alert('New text added successfully');
-        console.log('New text:', data);
-      })
-      .catch(error => console.error('Error adding text:', error));
+    .then(response => response.json())
+    .then(data => {
+      // console.log('Text added successfully!', data);
+      showNotification(ALERT_TYPE.SUCCESS, 'Text added successfully!');
+      setTextContent('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification(ALERT_TYPE.DANGER, 'Failed to add text');
+    });
   };
 
   const handleUpdateText = () => {
-    fetch(`http://localhost:3000/api/texts/${updateTextId}`, {
+    fetch(`https://fgpc-api.onrender.com/api/texts/${updateTextId}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ content: updateContent }),
+      body: JSON.stringify({ content: updateContent })
     })
-      .then(response => response.json())
-      .then(data => {
-        alert('Text updated successfully');
-        console.log('Updated text:', data);
-      })
-      .catch(error => console.error('Error updating text:', error));
+    .then(response => response.json())
+    .then(data => {
+      // console.log('Text updated successfully!', data);
+      showNotification(ALERT_TYPE.SUCCESS, 'Text updated successfully!');
+      setUpdateTextId('');
+      setUpdateContent('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification(ALERT_TYPE.DANGER, 'Failed to update text');
+    });
+  };
+
+  const handleAddLink = () => {
+    fetch('https://fgpc-api.onrender.com/api/links', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type: linkType, url: linkUrl })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log('Link added successfully!', data);
+      showNotification(ALERT_TYPE.SUCCESS, 'Link added successfully!');
+      setLinkType('');
+      setLinkUrl('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification(ALERT_TYPE.DANGER, 'Failed to add link');
+    });
+  };
+
+  const handleUpdateLink = () => {
+    fetch(`https://fgpc-api.onrender.com/api/links/${updateLinkId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type: updateLinkType, url: updateLinkUrl })
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log('Link updated successfully!', data);
+      showNotification(ALERT_TYPE.SUCCESS, 'Link updated successfully!');
+      setUpdateLinkId('');
+      setUpdateLinkType('');
+      setUpdateLinkUrl('');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      showNotification(ALERT_TYPE.DANGER, 'Failed to update link');
+    });
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Admin Pannel</Text>
+    <AlertNotificationRoot>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Manage All Links</Text>
 
-      <Text style={styles.sectionTitle}>Add New Photo</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Photo URL"
-        value={photoUrl}
-        onChangeText={setPhotoUrl}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Caption"
-        value={caption}
-        onChangeText={setCaption}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleAddPhoto}>
-        <Text style={styles.buttonText}>Add Photo</Text>
-      </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <Button title="View All" onPress={() => setView('all')} />
+          <Button title="View Photos" onPress={() => setView('photos')} />
+          <Button title="View Texts" onPress={() => setView('texts')} />
+          <Button title="View Links" onPress={() => setView('links')} />
+        </View>
 
-      <Text style={styles.sectionTitle}>Update Photo</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Photo ID to Update"
-        value={updatePhotoId}
-        onChangeText={setUpdatePhotoId}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="New Photo URL"
-        value={updatePhotoUrl}
-        onChangeText={setUpdatePhotoUrl}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="New Caption"
-        value={updateCaption}
-        onChangeText={setUpdateCaption}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleUpdatePhoto}>
-        <Text style={styles.buttonText}>Update Photo</Text>
-      </TouchableOpacity>
+        {view === 'all' || view === 'photos' ? (
+          <>
+            <Text style={styles.subtitle}>Add New Photo</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Photo URL"
+              value={photoUrl}
+              onChangeText={setPhotoUrl}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Caption"
+              value={caption}
+              onChangeText={setCaption}
+            />
+            <Button title="Add Photo" onPress={handleAddPhoto} />
 
-      <Text style={styles.sectionTitle}>Add New Text</Text>
-      <TextInput
-        style={styles.textArea}
-        placeholder="Text Content"
-        value={textContent}
-        onChangeText={setTextContent}
-        multiline
-        numberOfLines={4}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleAddText}>
-        <Text style={styles.buttonText}>Add Text</Text>
-      </TouchableOpacity>
+            <Text style={styles.subtitle}>Update Photo</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Photo ID to Update"
+              value={updatePhotoId}
+              onChangeText={setUpdatePhotoId}
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="New Photo URL"
+              value={updatePhotoUrl}
+              onChangeText={setUpdatePhotoUrl}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="New Caption"
+              value={updateCaption}
+              onChangeText={setUpdateCaption}
+            />
+            <Button title="Update Photo" onPress={handleUpdatePhoto} />
+          </>
+        ) : null}
 
-      <Text style={styles.sectionTitle}>Update Text</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Text ID to Update"
-        value={updateTextId}
-        onChangeText={setUpdateTextId}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.textArea}
-        placeholder="New Text Content"
-        value={updateContent}
-        onChangeText={setUpdateContent}
-        multiline
-        numberOfLines={4}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleUpdateText}>
-        <Text style={styles.buttonText}>Update Text</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        {view === 'all' || view === 'texts' ? (
+          <>
+            <Text style={styles.subtitle}>Add New Text</Text>
+            <TextInput
+              style={styles.textArea}
+              placeholder="Text Content"
+              value={textContent}
+              onChangeText={setTextContent}
+              multiline
+            />
+            <Button title="Add Text" onPress={handleAddText} />
+
+            <Text style={styles.subtitle}>Update Text</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Text ID to Update"
+              value={updateTextId}
+              onChangeText={setUpdateTextId}
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.textArea}
+              placeholder="New Text Content"
+              value={updateContent}
+              onChangeText={setUpdateContent}
+              multiline
+            />
+            <Button title="Update Text" onPress={handleUpdateText} />
+          </>
+        ) : null}
+
+        {view === 'all' || view === 'links' ? (
+          <>
+            <Text style={styles.subtitle}>Add New Link</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Link Type"
+              value={linkType}
+              onChangeText={setLinkType}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Link URL"
+              value={linkUrl}
+              onChangeText={setLinkUrl}
+            />
+            <Button title="Add Link" onPress={handleAddLink} />
+
+            <Text style={styles.subtitle}>Update Link</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Link ID to Update"
+              value={updateLinkId}
+              onChangeText={setUpdateLinkId}
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="New Link Type"
+              value={updateLinkType}
+              onChangeText={setUpdateLinkType}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="New Link URL"
+              value={updateLinkUrl}
+              onChangeText={setUpdateLinkUrl}
+            />
+            <Button title="Update Link" onPress={handleUpdateLink} />
+          </>
+        ) : null}
+      </ScrollView>
+    </AlertNotificationRoot>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    flex: 1,
+    padding: 20,
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  sectionTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 16,
-    marginBottom: 8,
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
     borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    marginBottom: 10,
     borderRadius: 5,
-    paddingHorizontal: 8,
-    marginBottom: 12,
   },
   textArea: {
-    height: 80,
-    borderColor: '#ccc',
     borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    marginBottom: 10,
     borderRadius: 5,
-    paddingHorizontal: 8,
-    marginBottom: 12,
+    height: 100,
   },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
   },
 });
 
-export default ManageDummyData;
+export default ManageDataComponent;

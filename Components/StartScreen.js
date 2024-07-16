@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
+import Icon3 from 'react-native-vector-icons/Feather';
+
 
 const StartScreen = ({ navigation }) => {
   return (
@@ -20,7 +23,7 @@ const StartScreen = ({ navigation }) => {
       </View>
       
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
+        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() =>navigation.navigate("Media&Magazine")}>
           <Icon name="volume-high" size={30} color="#fff" />
           <Text style={styles.buttonText}>Media & Magazine</Text>
         </TouchableOpacity>
@@ -31,21 +34,21 @@ const StartScreen = ({ navigation }) => {
       </View>
        
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
-          <Icon name="volume-high" size={30} color="#fff" />
-          <Text style={styles.buttonText}>Media & Magazine</Text>
+        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() =>navigation.navigate("Notice")}>
+          <Icon2 name="notification" size={30} color="#fff" />
+          <Text style={styles.buttonText}>Notice Board</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("UseFulLink")}>
-          <Icon name="link" size={30} color="#fff" />
-          <Text style={styles.buttonText}>Useful link</Text>
+        <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("Donate")}>
+          <Icon3 name="coffee" size={30} color="#fff" />
+          <Text style={styles.buttonText}>Buy Me a Coffee</Text>
         </TouchableOpacity>
       </View>
        
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
+        {/* <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
           <Icon name="volume-high" size={30} color="#fff" />
           <Text style={styles.buttonText}>Media & Magazine</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("AdminLogin")}>
           <Icon name="account-cog" size={30} color="#fff" />
           <Text style={styles.buttonText}>Admin Login</Text>

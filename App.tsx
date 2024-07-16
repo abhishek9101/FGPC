@@ -17,6 +17,9 @@ import CourseSongDetails from './CourseSong/CourseSongDetails';
 import UseFulLink from './Components/UseFulLink/UseFulLink';
 import AdminLogin from './Admin_Login/AdminLogin';
 import AdminPageContent from './Admin_Login/AdminPageContent';
+import MediaMagazine from './Components/MediaMagazine/MediaMagzine';
+import Notice from './Components/Notice/Notice';
+import Donate from './Components/Donate/Donate';
 const Stack=createNativeStackNavigator()
 
 
@@ -33,6 +36,9 @@ function App() {
         <Stack.Screen name="UseFulLink" component={UseFulLink}/>
         <Stack.Screen name="AdminLogin" component={AdminLogin} />
         <Stack.Screen name="AdminPageContent" component={AdminPageContent}/>
+        <Stack.Screen name='Media&Magazine' component={MediaMagazine}/>
+        <Stack.Screen name="Notice" component={Notice}/>
+        <Stack.Screen name='Donate' component={Donate}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

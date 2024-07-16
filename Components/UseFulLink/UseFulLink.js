@@ -1,25 +1,37 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, ActivityIndicator } from 'react-native';
 
 const UseFulLink = () => {
-  const links = [
-    { name: "Meeting Link", url: "https://meeting-link.com" },
-    { name: "Church Link", url: "https://church-link.com" },
-    { name: "Event Link", url: "https://event-link.com" },
-    { name: "Social Link", url: "https://social-link.com" },
-    { name: "Other Link", url: "https://other-link.com" },
-  ];
+  const [links, setLinks] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://fgpc-api.onrender.com/api/links')
+      .then(response => response.json())
+      .then(data => {
+        setLinks(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching links:', error);
+        setLoading(false);
+      });
+  }, []);
 
   const handleLinkPress = (url) => {
     Linking.openURL(url);
   };
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />;
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Useful Links</Text>
       {links.map((link, index) => (
         <TouchableOpacity key={index} onPress={() => handleLinkPress(link.url)} style={styles.linkButton}>
-          <Text style={styles.linkText}>{link.name}</Text>
+          <Text style={styles.linkText}>{link.type}</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -65,6 +77,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

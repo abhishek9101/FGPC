@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextInput, Divider, Text, HelperText, useTheme, ActivityIndicator, MD2Colors } from 'react-native-paper';
-import songsData from "../assets/song.json"
+import songsData from "../assets/song.json";
 
 function SongListScreen({ navigation }) {
   const { colors } = useTheme();
@@ -10,7 +10,6 @@ function SongListScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
     setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -33,13 +32,13 @@ function SongListScreen({ navigation }) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center' }]}>
         <Text style={{color:"red",marginBottom:20,fontSize:25, fontWeight:"bold"}}>Loading...</Text>
-        <ActivityIndicator  animating={true} color={MD2Colors.lightBlue500} size="large" />
+        <ActivityIndicator animating={true} color={MD2Colors.lightBlue500} size="large" />
       </View>
     );
   }
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={[styles.title, { color: colors.text }]}>Search Song by Number</Text>
       <TextInput
         style={styles.input}
@@ -54,27 +53,28 @@ function SongListScreen({ navigation }) {
         {error}
       </HelperText>
 
-      {filteredSongs.map((song, index) => (
-        <View key={song.songNumber}>
-          <TouchableOpacity 
-            onPress={() => navigation.navigate('SongDetails', { songNumber: song.songNumber })}
-          >
-            <View style={[styles.songItem, { borderColor: colors.border }]}>
-              <Text style={[styles.songNumber, { color: colors.text }]}>Song Number: {song.songNumber}</Text>
-              <Text style={[styles.songChorus, { color: colors.text }]}>
-                {song.chorus.split('\n').slice(0, 2).join(' ')}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          {index < filteredSongs.length - 1 && <Divider />}
-        </View>
-      ))}
+      <ScrollView>
+        {filteredSongs.map((song, index) => (
+          <View key={song.songNumber}>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('SongDetails', { songNumber: song.songNumber })}
+            >
+              <View style={[styles.songItem, { borderColor: colors.border }]}>
+                <Text style={[styles.songNumber, { color: colors.text }]}>Song Number: {song.songNumber}</Text>
+                <Text style={[styles.songChorus, { color: colors.text }]}>
+                  {song.chorus.split('\n').slice(0, 2).join(' ')}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            {index < filteredSongs.length - 1 && <Divider />}
+          </View>
+        ))}
 
-      {filteredSongs.length === 0 && (
-        <Text style={styles.noSong }>Please Enter Valid Song Number (कृपया वैध गीत संख्या दर्ज करें)</Text>
-        
-      )}
-    </ScrollView>
+        {filteredSongs.length === 0 && (
+          <Text style={styles.noSong }>Please Enter Valid Song Number (कृपया वैध गीत संख्या दर्ज करें)</Text>
+        )}
+      </ScrollView>
+    </View>
   );
 }
 
@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     marginTop: 24,
     textAlign: 'center',
     fontSize: 16,
-    color:"red",
-    fontWeight:"bold"
+    color: "red",
+    fontWeight: "bold"
   },
 });
 
