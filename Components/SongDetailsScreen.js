@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import songsData from '../assets/song.json';
 
-
 function SongDetailScreen({ route }) {
   const { songNumber } = route.params;
   const song = songsData.songs.find(s => s.songNumber === songNumber);
@@ -17,6 +16,7 @@ function SongDetailScreen({ route }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>Song Number - {songNumber}</Text>
       <Text style={styles.label}>Chorus:</Text>
       <Text style={styles.chorus}>{song.chorus}</Text>
       {song.stanzas.map((stanza, index) => (
@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+    color:"#0984e3"
+  },
   label: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -47,6 +54,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 24,
     textAlign: 'center',
+  
   },
   stanzaContainer: {
     marginBottom: 16,
@@ -55,6 +63,7 @@ const styles = StyleSheet.create({
   stanzaText: {
     fontSize: 16,
     textAlign: 'center',
+   
   },
   noSong: {
     marginTop: 24,

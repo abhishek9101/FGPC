@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView, Linking, ActivityIndicator } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView, Linking, ActivityIndicator, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const MediaMagazine = () => {
@@ -19,6 +19,8 @@ const MediaMagazine = () => {
       });
   }, []);
 
+  const icons = ['book', 'newspaper-o', 'file-text-o', 'picture-o']; 
+
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
@@ -28,38 +30,58 @@ const MediaMagazine = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {magazines.map((magazine, index) => (
-        <View key={magazine.id} style={styles.magazine}>
-          <Icon
-            name={index % 2 === 0 ? "book" : "book"}
-            size={100}
-            color="blue"
-            onPress={() => Linking.openURL(magazine.url)}
-            style={styles.icon}
-          />
-          <Text style={styles.title}>{magazine.caption}</Text>
-          <Button title="Read Now" onPress={() => Linking.openURL(magazine.url)} />
+    <ImageBackground source={{ uri: 'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA1L2pvYjE4MDgtcmVtaXgtMDZiLWMuanBn.jpg' }} style={styles.background}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.heading}>Magazines</Text>
+        <View style={styles.magazineContainer}>
+          {magazines.map((magazine, index) => (
+            <View key={magazine.id} style={styles.magazine}>
+              <Icon
+                name={icons[index % icons.length]}
+                size={100}
+                color="#007bff"
+                onPress={() => Linking.openURL(magazine.url)}
+                style={styles.icon}
+              />
+              <Text style={styles.title}>{magazine.caption}</Text>
+              <Button
+                title="Read Now"
+                onPress={() => Linking.openURL(magazine.url)}
+                color="#007bff"
+                accessibilityLabel={`Read ${magazine.caption}`}
+              />
+            </View>
+          ))}
         </View>
-      ))}
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch' or 'contain'
+  },
   container: {
+    padding: 20,
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background to overlay on the wallpaper
+  },
+  heading: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#FFF222', 
+  },
+  magazineContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5',
+    justifyContent: 'space-evenly',
   },
   magazine: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    margin: 10,
+    width: 150,
+    marginVertical: 10,
     padding: 10,
     backgroundColor: '#fff',
     borderRadius: 8,
@@ -67,8 +89,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 1,
-    maxWidth: 150,
+    elevation: 2,
+    alignItems: 'center',
   },
   icon: {
     marginBottom: 10,
@@ -76,8 +98,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    margin: 10,
     textAlign: 'center',
+    marginBottom: 10,
   },
   loadingContainer: {
     flex: 1,

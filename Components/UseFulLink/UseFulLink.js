@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, ActivityIndicator } from 'react-native';
 
-const UseFulLink = () => {
+const UsefulLink = () => {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,14 +26,37 @@ const UseFulLink = () => {
     return <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />;
   }
 
+  // Function to group links by type
+  const groupLinksByType = () => {
+    const groupedLinks = {};
+    links.forEach(link => {
+      if (!groupedLinks[link.type]) {
+        groupedLinks[link.type] = [];
+      }
+      groupedLinks[link.type].push(link);
+    });
+    return groupedLinks;
+  };
+
+  // Rendering function to display links grouped by type
+  const renderLinks = () => {
+    const groupedLinks = groupLinksByType();
+    return Object.keys(groupedLinks).map((type, index) => (
+      <View key={index} style={styles.linkContainer}>
+        <Text style={styles.linkHeader}>{type}</Text>
+        {groupedLinks[type].map((link, index) => (
+          <TouchableOpacity key={index} onPress={() => handleLinkPress(link.url)} style={styles.linkButton}>
+            <Text style={styles.linkText}>{link.url}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    ));
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Useful Links</Text>
-      {links.map((link, index) => (
-        <TouchableOpacity key={index} onPress={() => handleLinkPress(link.url)} style={styles.linkButton}>
-          <Text style={styles.linkText}>{link.type}</Text>
-        </TouchableOpacity>
-      ))}
+      {renderLinks()}
     </View>
   );
 };
@@ -60,12 +83,21 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ddd',
     paddingBottom: 10,
   },
+  linkContainer: {
+    marginBottom: 15,
+  },
+  linkHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#4a90e2',
+  },
   linkButton: {
     backgroundColor: '#4a90e2',
     borderRadius: 30,
     paddingVertical: 15,
     paddingHorizontal: 20,
-    marginVertical: 10,
+    marginVertical: 5,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -75,7 +107,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   loading: {
@@ -85,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UseFulLink;
+export default UsefulLink;

@@ -17,6 +17,7 @@ function CourseSongDetails({ route }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+       <Text style={styles.heading}>Chorus Number - {songNumber}</Text>
       <Text style={styles.label}>Chorus:</Text>
       <Text style={styles.chorus}>{song.chorus}</Text>
       {song.stanzas.map((stanza, index) => (
@@ -61,6 +62,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     color: 'red',
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    textAlign: 'center',
+    color:"#0984e3"
   },
 });
 

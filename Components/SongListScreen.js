@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   songNumber: {
     fontSize: 16,
     fontWeight: 'bold',
+    
   },
   songChorus: {
     fontSize: 14,

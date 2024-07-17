@@ -3,8 +3,10 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { AlertNotificationRoot, ALERT_TYPE, Dialog } from 'react-native-alert-notification';
 
 const AdminLogin = ({ navigation }) => {
+
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .email('Invalid email')
@@ -19,11 +21,20 @@ const AdminLogin = ({ navigation }) => {
     if (email === 'abhi@gmail.com' && password === 'abhi@123') {
       navigation.navigate('AdminPageContent');
     } else {
-      alert('Only Admin Can LogIn');
+      showNotification(ALERT_TYPE.DANGER, 'Only Admin Can Login');
     }
   };
 
+  const showNotification = (type, message) => {
+    Dialog.show({
+      type,
+      title: 'Notification',
+      textBody: message,
+      button: 'close',
+    });
+  };
   return (
+    < AlertNotificationRoot>
     <View style={styles.container}>
       <Text style={styles.title}>Only Admin can Login</Text>
       <Image 
@@ -72,6 +83,7 @@ const AdminLogin = ({ navigation }) => {
         )}
       </Formik>
     </View>
+    </AlertNotificationRoot>
   );
 };
 

@@ -1,13 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Image ,ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/Feather';
-
+import fgpcLogo from '../assets/fgpcLogo.png'
 
 const StartScreen = ({ navigation }) => {
+  const handlePress = () => {
+    Linking.openURL('https://fgpc.in/');
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView>   
+       <View style={styles.container}>
+      <Image
+      source={fgpcLogo} 
+      style={styles.logo}
+      resizeMode="contain"
+    />
+
       <Text style={styles.title}>आत्मिक आराधना गीत</Text>
       <Text style={styles.subtitle}>Aatmik Aaradhna Geet</Text>
       
@@ -16,14 +27,14 @@ const StartScreen = ({ navigation }) => {
           <Icon name="music-note" size={30} color="#fff" />
           <Text style={styles.buttonText}>हिंदी</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.englishButton]} onPress={() =>navigation.navigate("chorus")}>
+        <TouchableOpacity style={[styles.button, styles.englishButton]} onPress={() => navigation.navigate("chorus")}>
           <Icon name="music" size={30} color="#fff" />
           <Text style={styles.buttonText}>Chorus</Text>
         </TouchableOpacity>
       </View>
       
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() =>navigation.navigate("Media&Magazine")}>
+        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => navigation.navigate("Media&Magazine")}>
           <Icon name="volume-high" size={30} color="#fff" />
           <Text style={styles.buttonText}>Media & Magazine</Text>
         </TouchableOpacity>
@@ -34,7 +45,7 @@ const StartScreen = ({ navigation }) => {
       </View>
        
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() =>navigation.navigate("Notice")}>
+        <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => navigation.navigate("Notice")}>
           <Icon2 name="notification" size={30} color="#fff" />
           <Text style={styles.buttonText}>Notice Board</Text>
         </TouchableOpacity>
@@ -45,33 +56,22 @@ const StartScreen = ({ navigation }) => {
       </View>
        
       <View style={styles.buttonRow}>
-        {/* <TouchableOpacity style={[styles.button, styles.mediaButton]} onPress={() => console.log('Media & Magazine Button Pressed')}>
-          <Icon name="volume-high" size={30} color="#fff" />
-          <Text style={styles.buttonText}>Media & Magazine</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity style={[styles.button, styles.linkButton]} onPress={() => navigation.navigate("AdminLogin")}>
+        <TouchableOpacity style={[styles.button, styles.AdminButton]} onPress={() => navigation.navigate("AdminLogin")}>
           <Icon name="account-cog" size={30} color="#fff" />
           <Text style={styles.buttonText}>Admin Login</Text>
         </TouchableOpacity>
       </View>
       
-      <View style={styles.buttonRow}>
-        <TouchableOpacity style={[styles.button, styles.settingsButton]} onPress={() => console.log('Settings Button Pressed')}>
-          <Icon name="cog" size={30} color="#fff" />
-          <Text style={styles.buttonText}>सेटिंग्स</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.infoButton]} onPress={() =>navigation.navigate("Developers")}>
-          <Icon name="information" size={30} color="#fff" />
-          <Text style={styles.buttonText}>अधिक जानकारी</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={handlePress}>
+        <Text style={styles.footerText}>Reach us: https://fgpc.in/</Text>
+      </TouchableOpacity>
       
-      <Text style={styles.footerText}>Reach us: media@gemsbihar.org</Text>
-      
-      <TouchableOpacity onPress={() => Linking.openURL('https://abhishekportfolio9101.netlify.app/')}>
-        <Text style={styles.footerText}>Designed by abhishek.</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Developers")}>
+        <Text style={styles.footerText}>Designed by abhishek</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
+
   );
 };
 
@@ -80,8 +80,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
     padding: 10,
+  },
+  logo: {
+    width: '80%',  // Adjust width as needed
+    height: 100,   // Adjust height as needed
+    marginTop: 20,
   },
   title: {
     fontSize: 24,
@@ -120,24 +124,21 @@ const styles = StyleSheet.create({
   linkButton: {
     backgroundColor: '#009688',
   },
-  settingsButton: {
-    backgroundColor: '#9E9E9E',
-  },
-  infoButton: {
+  AdminButton: {
     backgroundColor: '#9C27B0',
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 8, 
-  },
-  footerText: {
-    marginTop: 20,
-    textAlign: 'center',
-    fontSize: 14,
-    color: 'gray',
-  },
-});
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginTop: 8, 
+    },
+    footerText: {
+      marginTop: 20,
+      textAlign: 'center',
+      fontSize: 14,
+      color: 'gray',
+    },
+  });
 
-export default StartScreen;
+  export default StartScreen;

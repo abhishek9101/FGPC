@@ -53,20 +53,15 @@ const Creator = () => {
       MobileNo: "797989347",
       Email:"abhishekraj9101@gmail.com",
       image: 'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-      posts: 109,
-      followers: '1.5M',
-      following: 71,
     },
     {
       name: 'Livingstone Jeeva',
       location: 'Lucknow',
       description: 'Web Developer',
-      MobileNo: "XXXXXXXXXX",
-      Email:"XXXXXXXXXXXX@gmail.com",
+      MobileNo: "8707448771",
+      Email:"living.jee@gmail.com",
       image: 'https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp',
-      posts: 200,
-      followers: '2.3M',
-      following: 150,
+      
     },
   ];
 
@@ -99,20 +94,6 @@ const Creator = () => {
           <TouchableOpacity style={styles.editButton} onPress={() => Linking.openURL('https://abhishekportfolio9101.netlify.app/')}>
             <Text style={styles.editButtonText}>Know More</Text>
           </TouchableOpacity>
-          <View style={styles.stats}>
-            <View style={styles.stat}>
-              <Text style={styles.statNumber}>{profile.posts}</Text>
-              <Text style={styles.statLabel}>Posts</Text>
-            </View>
-            <View style={styles.stat}>
-              <Text style={styles.statNumber}>{profile.followers}</Text>
-              <Text style={styles.statLabel}>Followers</Text>
-            </View>
-            <View style={styles.stat}>
-              <Text style={styles.statNumber}>{profile.following}</Text>
-              <Text style={styles.statLabel}>Following</Text>
-            </View>
-          </View>
         </View>
       ))}
       <View style={styles.contactCard}>
